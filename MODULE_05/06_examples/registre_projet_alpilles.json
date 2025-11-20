@@ -1,0 +1,117 @@
+{
+  "projet": "Résidence Les Alpilles",
+  "date": "2024-11-20",
+  "maitre_ouvrage": "SCI Les Alpilles",
+  "maitre_oeuvre": "Architecte Durand & Associés",
+  "exigences": [
+    {
+      "id": "GO-001",
+      "lot": "Gros Œuvre",
+      "ref_norme": "NF DTU 21",
+      "edition": "Mars 2021",
+      "paragraphe": "Section 7.2",
+      "intitule": "Résistance béton dalle rez-de-chaussée",
+      "severite": "majeure"
+    },
+    {
+      "id": "GO-002",
+      "lot": "Gros Œuvre",
+      "ref_norme": "EN 1992-1-1",
+      "edition": "Eurocode 2",
+      "paragraphe": "Section 9.3",
+      "intitule": "Enrobage minimal armatures XC1",
+      "severite": "majeure"
+    },
+    {
+      "id": "COV-001",
+      "lot": "Couverture",
+      "ref_norme": "NF DTU 40.21",
+      "edition": "Mai 2019",
+      "paragraphe": "Section 5.2.1",
+      "intitule": "Pente minimale couverture tuiles",
+      "severite": "majeure"
+    },
+    {
+      "id": "COV-002",
+      "lot": "Couverture",
+      "ref_norme": "NF DTU 40.21",
+      "edition": "Mai 2019",
+      "paragraphe": "Section 5.3.2",
+      "intitule": "Écran HPV conforme CPT 3651",
+      "severite": "majeure"
+    },
+    {
+      "id": "MEN-001",
+      "lot": "Menuiseries",
+      "ref_norme": "NF DTU 36.5",
+      "edition": "Octobre 2010",
+      "paragraphe": "Section 6.2.3",
+      "intitule": "Fixations menuiseries selon hauteur",
+      "severite": "critique"
+    }
+  ],
+  "preuves": [
+    {
+      "preuve_id": "P-001",
+      "exigence_id": "GO-001",
+      "date": "2024-10-15",
+      "type": "PV essai béton",
+      "reference": "PV-BET-2024-042",
+      "resultat": "OK",
+      "commentaire": "Résistance 28 MPa > 25 MPa requis"
+    },
+    {
+      "preuve_id": "P-002",
+      "exigence_id": "GO-002",
+      "date": "2024-10-20",
+      "type": "Mesure pachomètre",
+      "reference": "Mesures zone A1-A5",
+      "resultat": "OK",
+      "commentaire": "Enrobage mesuré 22-24 mm > 20 mm mini"
+    },
+    {
+      "preuve_id": "P-003",
+      "exigence_id": "COV-001",
+      "date": "2024-11-10",
+      "type": "Contrôle documentaire CCTP + plans",
+      "reference": "CCTP Article 3.3 + Plan coupes",
+      "resultat": "OK",
+      "commentaire": "Pente 28% > 25% requis zone B"
+    },
+    {
+      "preuve_id": "P-004",
+      "exigence_id": "COV-002",
+      "date": "2024-11-12",
+      "type": "Visite chantier",
+      "reference": "Photos + mesures recouvrements",
+      "resultat": "KO",
+      "commentaire": "Recouvrements 5-6 cm au lieu de 10 cm mini"
+    }
+  ],
+  "ncs": [
+    {
+      "nc_id": "NC-001",
+      "date_constat": "2024-11-12",
+      "exigence_id": "COV-002",
+      "description": "Recouvrements écran sous-toiture insuffisants (5-6 cm au lieu de 10 cm)",
+      "localisation": "Bâtiment A, versant Sud",
+      "gravite": "majeure",
+      "statut": "ouvert",
+      "action_corrective": "Dépose partielle tuiles + repositionnement écran",
+      "responsable": "SARL COUV-PRO",
+      "delai_cible": "2024-11-29"
+    },
+    {
+      "nc_id": "NC-002",
+      "date_constat": "2024-11-18",
+      "exigence_id": "MEN-001",
+      "description": "Fenêtre F12 : 3 fixations au lieu de 4 (hauteur > 1,50 m)",
+      "localisation": "Bâtiment C, Apt C304",
+      "gravite": "critique",
+      "statut": "ouvert",
+      "action_corrective": "Dépose et repose fenêtre avec fixations conformes",
+      "responsable": "Entreprise MENUISERIES EXPERT",
+      "delai_cible": "2024-11-25"
+    }
+  ]
+}
