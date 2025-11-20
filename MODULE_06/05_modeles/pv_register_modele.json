@@ -1,0 +1,17 @@
+{
+  "pv": [
+    {
+      "id":"PV-XXXX",
+      "essai_id":"<ID essai>",
+      "date":"<YYYY-MM-DD>",
+      "ouvrage":"<Zone>",
+      "zone":"<Repère>",
+      "type":"mesure",
+      "valeurs":{"mesure":0},
+      "unite":"<unit>",
+      "conformite":"NA",
+      "commentaire":"",
+      "fichier":"./pv/..."
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Plan de contrôle chantier",
+  "type": "object",
+  "required": ["meta","lots","essais"],
+  "properties": {
+    "meta": {
+      "type":"object",
+      "required":["projet","version","date"],
+      "properties":{
+        "projet":{"type":"string"},
+        "version":{"type":"string"},
+        "date":{"type":"string"}
+      }
+    },
+    "lots": {
+      "type":"array",
+      "items":{"type":"string"},
+      "description":"Liste des lots/corps d’état concernés"
+    },
+    "essais": {
+      "type":"array",
+      "items":{"$ref":"essai.schema.json"}
+    }
+  },
+  "additionalProperties": false
+}

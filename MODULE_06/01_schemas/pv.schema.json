@@ -1,0 +1,20 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "title":"Procès-verbal (PV) / Mesure",
+  "type":"object",
+  "required":["id","essai_id","date","type","valeurs","conformite"],
+  "properties":{
+    "id":{"type":"string"},
+    "essai_id":{"type":"string"},
+    "date":{"type":"string"},
+    "ouvrage":{"type":"string"},
+    "zone":{"type":"string"},
+    "type":{"type":"string","enum":["essai","mesure","controle_visuel","documentaire"]},
+    "valeurs":{"type":"object","additionalProperties": {"type":["number","string"]}},
+    "unite":{"type":"string"},
+    "conformite":{"type":"string","enum":["OK","KO","NA"]},
+    "commentaire":{"type":"string"},
+    "fichier":{"type":"string","description":"chemin/URL vers le PV signé ou photo"}
+  },
+  "additionalProperties": false
+}

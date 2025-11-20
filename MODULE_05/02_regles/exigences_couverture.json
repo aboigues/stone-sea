@@ -1,0 +1,37 @@
+{
+  "meta": {"lot":"Couverture","ref":"NF DTU 40.xx","edition":"à renseigner","date_generation":"2025-11-13"},
+  "exigences": [
+    {
+      "id": "COV-001",
+      "lot": "Couverture",
+      "objet_ouvrage": "Couverture tuiles",
+      "ref_norme": "NF DTU 40.21",
+      "edition": "à renseigner",
+      "date_publication": "",
+      "paragraphe": "Tolérances de pente",
+      "intitule": "Respect de la pente minimale selon zone et exposition",
+      "type_controle": "documentaire",
+      "critere_acceptation": "Pente ≥ seuil tableau DTU correspondant",
+      "severite": "majeure",
+      "mots_cles": ["pente","zone neige","exposition","DTU 40.21"],
+      "preuves_attendues": ["Note de calcul pente","Plan de toiture coté"],
+      "applicabilite": ""
+    },
+    {
+      "id": "COV-002",
+      "lot": "Couverture",
+      "objet_ouvrage": "Écrans sous-toiture",
+      "ref_norme": "NF DTU 40.29",
+      "edition": "à renseigner",
+      "date_publication": "",
+      "paragraphe": "Mise en œuvre",
+      "intitule": "Écran HPV posé selon recouvrements prescrits",
+      "type_controle": "visuel",
+      "critere_acceptation": "Recouvrement ≥ valeur prescrite en fonction de la pente",
+      "severite": "majeure",
+      "mots_cles": ["écran","HPV","recouvrement","DTU 40.29"],
+      "preuves_attendues": ["Photo recouvrement avec mètre"],
+      "applicabilite": ""
+    }
+  ]
+}

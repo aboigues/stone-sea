@@ -1,0 +1,15 @@
+[
+  {
+    "code": "L01-001",
+    "intitule": "Isolation sous toiture, laine minérale 200 mm",
+    "description": "Fourniture et pose, y c. fixations",
+    "unite": "m2",
+    "quantite": 125.0,
+    "prix_unitaire": 18.5,
+    "montant": 2312.5,
+    "hypotheses": "Surfaces nettes d'après Plan A-203, hors trémies",
+    "sources": ["CCTP_L01.pdf#p15", "Plan_A-203"],
+    "liens_normatifs": ["NF DTU 45.x (édition à préciser)"],
+    "tags": ["isolation","couverture"]
+  }
+]

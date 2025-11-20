@@ -1,0 +1,6 @@
+{
+  "unites_equivalences": {
+    "MPa": ["N/mm2"],
+    "mm": ["millimetre","millimètre"]
+  }
+}

@@ -1,0 +1,4 @@
+id,lot,document_source,exigence,valeur_requise,valeur_constatee,unite,conforme,gravite,source_ref
+C-001,CVC,CCTP_P2_Clim.pdf,Epaisseur enrobage mini,>=30,28,mm,false,majeure,"CCTP p.42 ; NF DTU 65.14 (édition à préciser)"
+C-002,Couverture,Plan_TOIT_01.pdf,Pente mini membrane,>=2,1.5,%,false,significative,"Plan repère P2 ; Famille NF DTU 40.xx"
+C-003,Maçonnerie,PV_Reception_MUR_A.pdf,Planeite mur,<5,<5,mm,true,mineure,"PV §3 ; NF DTU 20.1 (édition à préciser)"

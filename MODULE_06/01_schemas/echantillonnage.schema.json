@@ -1,0 +1,15 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "title":"Règle d’échantillonnage",
+  "type":"object",
+  "required":["mode","parametres"],
+  "properties":{
+    "mode":{"type":"string","enum":["fixe","pourcentage","surface","unites_ouvrage"]},
+    "parametres":{
+      "type":"object",
+      "additionalProperties": {"type":["number","string"]},
+      "description":"Ex: {\"nb\":3} ou {\"pct\":10} ou {\"surface\":50}"
+    }
+  },
+  "additionalProperties": false
+}

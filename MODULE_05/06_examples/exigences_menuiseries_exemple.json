@@ -1,0 +1,17 @@
+{
+  "exigences": [
+    {
+      "id": "MEN-001",
+      "lot": "Menuiseries extérieures",
+      "objet_ouvrage": "Fenêtres PVC",
+      "ref_norme": "NF DTU 36.5",
+      "edition": "à renseigner",
+      "paragraphe": "Calfeutrement",
+      "intitule": "Calfeutrement adapté à la classe d’exposition",
+      "type_controle": "documentaire",
+      "critere_acceptation": "Système compatible classe d’exposition",
+      "severite": "majeure",
+      "mots_cles": ["calfeutrement","mousse imprégnée","fond de joint","DTU 36.5"]
+    }
+  ]
+}

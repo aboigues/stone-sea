@@ -1,0 +1,17 @@
+{
+  "exigences": [
+    {
+      "id": "COV-001",
+      "lot": "Couverture",
+      "objet_ouvrage": "Couverture tuiles",
+      "ref_norme": "NF DTU 40.21",
+      "edition": "à renseigner",
+      "paragraphe": "Tolérances de pente",
+      "intitule": "Respect de la pente minimale selon zone et exposition",
+      "type_controle": "documentaire",
+      "critere_acceptation": "Pente ≥ seuil tableau DTU correspondant",
+      "severite": "majeure",
+      "mots_cles": ["pente","zone neige","exposition","DTU 40.21"]
+    }
+  ]
+}

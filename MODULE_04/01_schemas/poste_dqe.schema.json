@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Poste DQE/DPGF",
+  "type": "object",
+  "required": ["code","intitule","unite","quantite","prix_unitaire","montant","sources"],
+  "properties": {
+    "code": {"type": "string"},
+    "intitule": {"type": "string"},
+    "description": {"type": "string"},
+    "unite": {"type": "string", "enum": ["m","m2","m3","u","kg","h","forfait"]},
+    "quantite": {"type": "number", "minimum": 0},
+    "prix_unitaire": {"type": "number", "minimum": 0},
+    "montant": {"type": "number", "minimum": 0},
+    "hypotheses": {"type": "string"},
+    "sources": {"type": "array", "items": {"type": "string"}},
+    "liens_normatifs": {"type": "array", "items": {"type": "string"}},
+    "tags": {"type": "array", "items": {"type": "string"}}
+  },
+  "additionalProperties": false
+}

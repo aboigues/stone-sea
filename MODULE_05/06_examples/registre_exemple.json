@@ -1,0 +1,13 @@
+{
+  "meta": {"projet":"Opération Démo","date":"2025-11-13","version":"0.1"},
+  "exigences": [
+    {"id":"MEN-001","lot":"Menuiseries extérieures","ref_norme":"NF DTU 36.5","paragraphe":"Calfeutrement","intitule":"Calfeutrement adapté","severite":"majeure"},
+    {"id":"COV-001","lot":"Couverture","ref_norme":"NF DTU 40.21","paragraphe":"Pente","intitule":"Pente minimale","severite":"majeure"}
+  ],
+  "preuves": [
+    {"id":"PR-1","exigence_id":"MEN-001","type":"photo","resultat":"OK","lien":"./photos/men-001.jpg","date":"2025-11-13"}
+  ],
+  "ncs": [
+    {"id":"NC-AB12CD34","exigence_id":"COV-001","description":"Pente constatée insuffisante","gravite":"majeure","statut":"ouvert","date_ouverture":"2025-11-13"}
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "meta": {
+    "projet": "Opération X",
+    "date": "2025-11-13",
+    "lot": "CVC",
+    "participants": ["MOE", "Entreprise", "CSPS"],
+    "meteo": "Couvert 12°C",
+    "documents_consultes": ["Planning_S+8", "Plan_MEP_L2"]
+  },
+  "avancement": {
+    "taches_prevues": ["Pose gaines R+2", "Essais étanchéité réseau A"],
+    "taches_realisees": ["Pose gaines R+2"],
+    "ecarts": ["Essais étanchéité reportés faute d'accès local CTA"]
+  },
+  "points": [
+    {"id":"P-01","type":"NC","description":"Manchon sans collier coupe‑feu zone cage A","gravite":"majeure","liens":["Photo_001.jpg","Plan_MEP_L2#A12"]},
+    {"id":"P-02","type":"point_attention","description":"Réception supports avant isolant","gravite":"significative","liens":["Photo_004.jpg"]}
+  ],
+  "photos": [
+    {"fichier":"Photo_001.jpg","repere_plan":"A12","commentaire":"Traversée mur CF 2h"},
+    {"fichier":"Photo_004.jpg","repere_plan":"B07","commentaire":"Support attente"}
+  ],
+  "actions": [
+    {"qui":"Entreprise CVC","quoi":"Poser collier CF et PV","quand":"S+1","critere_succes":"PV essais CF"},
+    {"qui":"MOE","quoi":"Valider supports","quand":"J+3","critere_succes":"Visa MOE"}
+  ]
+}

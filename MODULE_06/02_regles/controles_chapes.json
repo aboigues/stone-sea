@@ -1,0 +1,31 @@
+{
+  "meta": {"lot":"Chapes (référence DTU)","ref":"NF DTU 26.2 (à vérifier selon édition)","date_generation":"2025-11-13"},
+  "essais": [
+    {
+      "id":"CHA-PLAN",
+      "lot":"Chapes",
+      "intitule":"Planéité chapes",
+      "reference":"NF DTU 26.2 — tolérances de surface",
+      "type":"mesure",
+      "frequence":"1 mesure/20 m² min.",
+      "critere_acceptation":"écarts sous règle de 2 m ≤ tolérance",
+      "unite":"mm",
+      "cible":"≤ tolérance DTU",
+      "echantillonnage":{"mode":"surface","parametres":{"surface":20}},
+      "evidences_attendues":["PV planéité","Photos règle 2 m + cale"]
+    },
+    {
+      "id":"CHA-HUM",
+      "lot":"Chapes",
+      "intitule":"Humidité résiduelle avant revêtement",
+      "reference":"NF DTU 26.2 / Avis fabricant revêtement",
+      "type":"mesure",
+      "frequence":"1 mesure/50 m²",
+      "critere_acceptation":"Teneur en humidité compatible revêtement",
+      "unite":"% CM",
+      "cible":"≤ seuil compatible",
+      "echantillonnage":{"mode":"surface","parametres":{"surface":50}},
+      "evidences_attendues":["PV humidité","Trace mesure"]
+    }
+  ]
+}

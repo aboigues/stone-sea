@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Registre normatif",
+  "type": "object",
+  "required": ["meta","exigences","preuves","ncs"],
+  "properties": {
+    "meta": {
+      "type":"object",
+      "required":["projet","date"],
+      "properties":{
+        "projet":{"type":"string"},
+        "date":{"type":"string"},
+        "version":{"type":"string"}
+      }
+    },
+    "exigences":{"type":"array","items":{"$ref":"exigence_normative.schema.json"}},
+    "preuves":{"type":"array","items":{"$ref":"preuve_conformite.schema.json"}},
+    "ncs":{"type":"array","items":{"$ref":"nc.schema.json"}}
+  },
+  "additionalProperties": false
+}

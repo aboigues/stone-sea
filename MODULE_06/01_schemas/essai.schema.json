@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Essai/Contrôle",
+  "type": "object",
+  "required": ["id","lot","intitule","reference","type","frequence","critere_acceptation"],
+  "properties": {
+    "id":{"type":"string"},
+    "lot":{"type":"string"},
+    "intitule":{"type":"string"},
+    "reference":{"type":"string","description":"Ex: NF EN / NF DTU / AT / Spéc. projet"},
+    "type":{"type":"string","enum":["essai","mesure","controle_visuel","documentaire"]},
+    "frequence":{"type":"string","description":"Ex: 1/50 m2, 1 par lot, N prélèvements/sem."},
+    "critere_acceptation":{"type":"string"},
+    "unite":{"type":"string"},
+    "cible":{"type":["number","string"]},
+    "tol_minus":{"type":["number","string"]},
+    "tol_plus":{"type":["number","string"]},
+    "echantillonnage":{"$ref":"echantillonnage.schema.json"},
+    "evidences_attendues":{"type":"array","items":{"type":"string"}}
+  },
+  "additionalProperties": false
+}

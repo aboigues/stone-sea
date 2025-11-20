@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SortieControleTechnique",
+  "type": "object",
+  "required": ["lot", "verdict_global", "exigences", "sources_globales", "journal"],
+  "properties": {
+    "lot": {"type": "string"},
+    "verdict_global": {"type": "string", "enum": ["CONFORME", "NON CONFORME", "INCERTAIN"]},
+    "exigences": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["intitule", "decision", "justification", "source", "edition", "actions"],
+        "properties": {
+          "intitule": {"type": "string"},
+          "decision": {"type": "string", "enum": ["CONFORME", "NON CONFORME", "INCERTAIN"]},
+          "justification": {"type": "string"},
+          "source": {"type": "string"},
+          "edition": {"type": "string"},
+          "actions": {"type": "string"}
+        }
+      }
+    },
+    "sources_globales": {"type": "array", "items": {"type": "string"}},
+    "journal": {
+      "type": "object",
+      "required": ["horodatage", "hash_entree", "modele", "version_prompts"],
+      "properties": {
+        "horodatage": {"type": "string"},
+        "hash_entree": {"type": "string"},
+        "modele": {"type": "string"},
+        "version_prompts": {"type": "string"}
+      }
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "metrics": [
+    {"name":"tps_traitement_sec","type":"number"},
+    {"name":"exactitude_pct","type":"number"},
+    {"name":"reponses_ssourcees_pct","type":"number"},
+    {"name":"incidents_critique_nb","type":"integer"},
+    {"name":"non_conformites_majeures_nb","type":"integer"},
+    {"name":"adoption_utilisateurs_actifs","type":"integer"}
+  ],
+  "dimensions": ["lot","chantier","version_prompts","modele","semaine"]
+}

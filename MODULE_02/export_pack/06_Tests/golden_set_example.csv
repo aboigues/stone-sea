@@ -1,0 +1,4 @@
+doc_id,lot,exigence,verdict_attendu,source_attendue,edition_attendue
+CCTP_001,Couverture,Pente minimale COND,CONFORME,NF DTU 40.21,[édition]
+CCTP_002,Couverture,Recouvrement tuiles,NON CONFORME,NF DTU 40.211,[édition]
+CCTP_010,Maçonnerie,Tolérances appareillage,CONFORME,NF DTU 20.1,[édition]

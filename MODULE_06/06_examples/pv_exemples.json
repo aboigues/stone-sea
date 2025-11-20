@@ -1,0 +1,8 @@
+{
+  "pv": [
+    {"id":"PV-BET-001","essai_id":"BET-RESIST","date":"2025-11-13","ouvrage":"Voile V1","zone":"Niv. R+1",
+      "type":"essai","valeurs":{"mesure":31.2},"unite":"MPa","conformite":"OK","commentaire":"—","fichier":"./pv/31d_V1.pdf"},
+    {"id":"PV-CHA-001","essai_id":"CHA-PLAN","date":"2025-11-13","ouvrage":"Plateau Bureau","zone":"Zone A",
+      "type":"mesure","valeurs":{"mesure":4},"unite":"mm","conformite":"OK","commentaire":"—","fichier":"./pv/planeite_A.pdf"}
+  ]
+}

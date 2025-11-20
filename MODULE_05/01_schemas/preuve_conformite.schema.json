@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Preuve de conformité",
+  "type": "object",
+  "required": ["id","exigence_id","type","resultat","lien","date"],
+  "properties": {
+    "id": {"type":"string"},
+    "exigence_id": {"type":"string"},
+    "type": {"type":"string","enum":["photo","PV","CR","mesure","attestation"]},
+    "resultat": {"type":"string","enum":["OK","KO","NA"]},
+    "commentaire": {"type":"string"},
+    "lien": {"type":"string", "description":"Chemin/URL vers la preuve"},
+    "date": {"type":"string"}
+  },
+  "additionalProperties": false
+}

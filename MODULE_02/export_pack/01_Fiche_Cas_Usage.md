@@ -1,0 +1,15 @@
+# Fiche Cas d’Usage IA — [Nom du chantier / lot]
+- Propriétaire métier: [Nom]
+- Sponsor: [Nom]
+- Objectif mesurable: [ex: -30% temps contrôle CCTP]
+- Périmètre documents: [CCTP sections X, plans Y, fiches techniques Z]
+- Exclusions: [•]
+- Données d’entrée: formats (PDF/DOCX/IFC/IMG), taille max, langue
+- Données interdites: données art. 9 RGPD, RH, secrets non nécessaires
+- Sorties attendues: JSON conforme au schéma (section 4.5) + rapport PDF
+- Critères d’acceptation: exactitude ≥ [X]%, réponses sourcées ≥ [Y]%
+- Normes cibles: [ex: NF DTU 40.29, 40.21, 20.1, 21, 60.5, 65.x, 70.1]
+- Validation humaine: double regard [rôle1, rôle2]
+- Mesures/KPI: temps, défauts détectés, incidents, adoption
+- Risques & contrôles: [tableau]
+- Jalons: [•]

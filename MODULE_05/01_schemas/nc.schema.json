@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Non-conformité (NC)",
+  "type": "object",
+  "required": ["id","exigence_id","description","gravite","statut"],
+  "properties": {
+    "id": {"type":"string"},
+    "exigence_id": {"type":"string"},
+    "description": {"type":"string"},
+    "gravite": {"type":"string","enum":["mineure","majeure","critique"]},
+    "statut": {"type":"string","enum":["ouvert","clos","en_attente"]},
+    "date_ouverture": {"type":"string"},
+    "date_cloture": {"type":"string"},
+    "action_corrections": {"type":"string"},
+    "responsable": {"type":"string"}
+  },
+  "additionalProperties": false
+}

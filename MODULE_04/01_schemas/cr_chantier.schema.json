@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CR Chantier",
+  "type": "object",
+  "required": ["meta","avancement","points","photos","actions"],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": ["projet","date","lot","participants"],
+      "properties": {
+        "projet": {"type":"string"},
+        "date": {"type":"string"},
+        "lot": {"type":"string"},
+        "participants": {"type":"array","items":{"type":"string"}},
+        "meteo": {"type":"string"},
+        "documents_consultes": {"type":"array","items":{"type":"string"}}
+      },
+      "additionalProperties": false
+    },
+    "avancement": {
+      "type":"object",
+      "required":["taches_prevues","taches_realisees","ecarts"],
+      "properties": {
+        "taches_prevues":{"type":"array","items":{"type":"string"}},
+        "taches_realisees":{"type":"array","items":{"type":"string"}},
+        "ecarts":{"type":"array","items":{"type":"string"}}
+      },
+      "additionalProperties": false
+    },
+    "points": {
+      "type":"array",
+      "items":{
+        "type":"object",
+        "required":["id","type","description","gravite"],
+        "properties": {
+          "id":{"type":"string"},
+          "type":{"type":"string","enum":["risque","NC","point_attention","info"]},
+          "description":{"type":"string"},
+          "gravite":{"type":"string","enum":["mineure","significative","majeure"]},
+          "liens":{"type":"array","items":{"type":"string"}}
+        },
+        "additionalProperties": false
+      }
+    },
+    "photos": {
+      "type":"array",
+      "items":{
+        "type":"object",
+        "required":["fichier"],
+        "properties":{
+          "fichier":{"type":"string"},
+          "repere_plan":{"type":"string"},
+          "commentaire":{"type":"string"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "actions": {
+      "type":"array",
+      "items":{
+        "type":"object",
+        "required":["qui","quoi","quand"],
+        "properties":{
+          "qui":{"type":"string"},
+          "quoi":{"type":"string"},
+          "quand":{"type":"string"},
+          "critere_succes":{"type":"string"}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

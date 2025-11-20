@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Evidence de conformité BTP",
+  "type": "object",
+  "required": ["meta", "references", "constats", "synthese"],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": ["chantier", "lot", "document_source", "modele_ia", "version_prompts"],
+      "properties": {
+        "chantier": {"type": "string"},
+        "lot": {"type": "string"},
+        "document_source": {"type": "array", "items": {"type": "string"}},
+        "modele_ia": {"type": "string"},
+        "version_prompts": {"type": "string"},
+        "horodatage_utc": {"type": "string"},
+        "hash_entrees": {
+          "type": "object",
+          "additionalProperties": {"type": "string"}
+        }
+      },
+      "additionalProperties": true
+    },
+    "references": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["famille", "numero", "couverture"],
+        "properties": {
+          "famille": {"type": "string", "enum": ["NF DTU", "Eurocode", "CCTP", "Guide interne", "Autre"]},
+          "numero": {"type": "string"},
+          "edition": {"type": "string"},
+          "articles": {"type": "array", "items": {"type": "string"}},
+          "couverture": {"type": "string", "enum": ["totale", "partielle", "hors_perimetre"]}
+        },
+        "additionalProperties": false
+      }
+    },
+    "constats": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "objet", "exigence", "conforme"],
+        "properties": {
+          "id": {"type": "string"},
+          "objet": {"type": "string"},
+          "exigence": {"type": "string"},
+          "valeur_requise": {"type": ["string", "number", "null"]},
+          "valeur_constatee": {"type": ["string", "number", "null"]},
+          "unite": {"type": ["string", "null"]},
+          "conforme": {"type": "boolean"},
+          "gravite": {"type": "string", "enum": ["mineure", "significative", "majeure"]},
+          "preuve": {
+            "type": "object",
+            "properties": {
+              "extrait": {"type": "string"},
+              "page_plan": {"type": "string"},
+              "coordonnees": {
+                "type": "object",
+                "properties": {
+                  "x": {"type": "number"},
+                  "y": {"type": "number"},
+                  "w": {"type": "number"},
+                  "h": {"type": "number"}
+                },
+                "additionalProperties": false
+              },
+              "captures": {"type": "array", "items": {"type": "string"}}
+            },
+            "additionalProperties": true
+          },
+          "citations_sources": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["source"],
+              "properties": {
+                "source": {"type": "string"},
+                "citation": {"type": "string"}
+              },
+              "additionalProperties": false
+            }
+          },
+          "recommandation": {"type": "string"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "synthese": {
+      "type": "object",
+      "required": ["non_conformites_majeures", "non_conformites_mineures", "points_attention", "risque_global", "decision"],
+      "properties": {
+        "non_conformites_majeures": {"type": "integer", "minimum": 0},
+        "non_conformites_mineures": {"type": "integer", "minimum": 0},
+        "points_attention": {"type": "integer", "minimum": 0},
+        "risque_global": {"type": "string", "enum": ["faible", "modéré", "élevé"]},
+        "decision": {"type": "string", "enum": ["conforme", "acceptation_conditionnelle", "retravail_requis"]}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

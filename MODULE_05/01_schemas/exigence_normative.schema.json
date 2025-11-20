@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Exigence normative",
+  "type": "object",
+  "required": ["id","lot","ref_norme","paragraphe","type_controle","critere_acceptation","severite"],
+  "properties": {
+    "id": {"type":"string", "description":"Identifiant unique de l’exigence"},
+    "lot": {"type":"string", "description":"Lot / corps d’état"},
+    "objet_ouvrage": {"type":"string"},
+    "ref_norme": {"type":"string", "description":"Ex: NF DTU 36.5"},
+    "edition": {"type":"string", "description":"Edition/version de la norme"},
+    "date_publication": {"type":"string"},
+    "paragraphe": {"type":"string", "description":"Article/§ concerné"},
+    "intitule": {"type":"string"},
+    "type_controle": {"type":"string", "enum":["documentaire","visuel","essai","mesure"]},
+    "critere_acceptation": {"type":"string"},
+    "severite": {"type":"string", "enum":["mineure","majeure","critique"]},
+    "mots_cles": {"type":"array","items":{"type":"string"}},
+    "preuves_attendues": {"type":"array","items":{"type":"string"}},
+    "applicabilite": {"type":"string", "description":"Condition d’application éventuelle"}
+  },
+  "additionalProperties": false
+}

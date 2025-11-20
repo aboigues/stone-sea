@@ -1,0 +1,33 @@
+{
+  "meta": {"lot":"Gros-œuvre (béton)","ref":"NF EN 206/CN + Spéc. projet","date_generation":"2025-11-13"},
+  "essais": [
+    {
+      "id":"BET-RESIST",
+      "lot":"Gros-œuvre",
+      "intitule":"Résistance à la compression (éprouvettes)",
+      "reference":"NF EN 206/CN (fréquence selon classe d'exposition et volume)",
+      "type":"essai",
+      "frequence":"selon volume béton (typ. 1 série/150 m3)",
+      "critere_acceptation":"fck, écrasement ≥ valeur cible",
+      "unite":"MPa",
+      "cible":"selon note de calcul",
+      "tol_minus":"-",
+      "tol_plus":"-",
+      "echantillonnage":{"mode":"unites_ouvrage","parametres":{"par_volume_m3":150}},
+      "evidences_attendues":["PV laboratoire","Fiches béton (DOD)"]
+    },
+    {
+      "id":"BET-SLUMP",
+      "lot":"Gros-œuvre",
+      "intitule":"Affaissement (consistance) à la livraison",
+      "reference":"NF EN 12350-2 (contrôle réception)",
+      "type":"mesure",
+      "frequence":"1 par camion ou selon plan de contrôle",
+      "critere_acceptation":"Classe d'affaissement conforme à la commande",
+      "unite":"mm",
+      "cible":"classe Sx",
+      "echantillonnage":{"mode":"fixe","parametres":{"nb":1}},
+      "evidences_attendues":["PV réception","Photo cône d'Abrams"]
+    }
+  ]
+}
