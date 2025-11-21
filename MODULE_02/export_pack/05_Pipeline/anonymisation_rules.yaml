@@ -1,13 +1,225 @@
+# Règles d'anonymisation pour documents BTP
+# Conforme RGPD et secret des affaires
+# Version: 2.0
+
+# ============================================================
+# RÈGLES GLOBALES D'ANONYMISATION
+# ============================================================
 global:
-  redactions:
-    - pattern: '\b[0-9]{2}\s?[A-Z]{2}\s?[0-9]{3}\b'   # plaques
-    - pattern: '\b\d{2}/\d{2}/\d{4}\b'               # dates
-    - pattern: '(?i)(nom|prénom|email|tél)\s*:.*$'    # PII simple
-  replace_with: '[ANON]'
-pdf:
-  remove_metadata: true
-images:
-  blur_faces: true
-  blur_text_like: true
-ifc:
-  strip_properties: ['OwnerHistory', 'Organization', 'Person']
+  # Active/désactive l'anonymisation globale
+  enabled: true
+
+  # Catégories à appliquer par défaut (null = toutes)
+  default_categories: null  # ['pii_noms', 'emails', 'telephones', 'montants']
+
+  # Génération automatique de rapports d'anonymisation
+  generate_reports: true
+
+  # Préservation du contexte métier BTP
+  preserve_technical_references: true  # NF DTU, Eurocodes, etc.
+
+# ============================================================
+# DONNÉES PERSONNELLES (RGPD)
+# ============================================================
+pii:
+  # Noms et prénoms
+  noms:
+    enabled: true
+    replacement: '[NOM]'
+    # Remplacements contextuels (optionnel)
+    contextual_replacements:
+      MOE: '[MOE-Init.]'      # Maître d'œuvre
+      MOA: '[MOA-Init.]'      # Maître d'ouvrage
+      Entreprise: '[ENT-Init.]'
+      Bureau_Controle: '[BC-Init.]'
+
+  # Emails
+  emails:
+    enabled: true
+    replacement: '[EMAIL]'
+    preserve_domains: false  # Si true, anonymise uniquement la partie locale
+
+  # Téléphones
+  telephones:
+    enabled: true
+    replacement: '[TEL]'
+    formats:
+      - 'FR_mobile'     # 06/07
+      - 'FR_fixe'       # 01-05, 09
+      - 'international' # +33
+
+  # Adresses postales
+  adresses:
+    enabled: true
+    replacement: '[ADRESSE]'
+    preserve_city: false      # Conserve la ville si true
+    preserve_postal_code: false
+
+  # Numéros de sécurité sociale
+  secu_sociale:
+    enabled: true
+    replacement: '[NUM-SECU]'
+
+# ============================================================
+# SECRET DES AFFAIRES
+# ============================================================
+commercial:
+  # Montants et prix
+  montants:
+    enabled: true
+    replacement: '[MONTANT]'
+    # Remplacement par classe de prix (optionnel)
+    use_price_classes: false
+    price_classes:
+      - '[<10k€]'
+      - '[10k-50k€]'
+      - '[50k-100k€]'
+      - '[100k-500k€]'
+      - '[>500k€]'
+
+  # Numéros de marché/contrat
+  num_marche:
+    enabled: true
+    replacement: '[MARCHE-XXX]'
+
+  # SIRET/SIREN
+  siret_siren:
+    enabled: true
+    replacement: '[SIRET]'
+    # Attention: SIREN (9 chiffres) peut détecter des faux positifs
+    strict_mode: true  # N'anonymise que SIRET (14 chiffres) si true
+
+  # IBAN
+  iban:
+    enabled: true
+    replacement: '[IBAN]'
+
+# ============================================================
+# DONNÉES TECHNIQUES SPÉCIFIQUES BTP
+# ============================================================
+btp:
+  # Plaques d'immatriculation (véhicules de chantier)
+  plaques:
+    enabled: true
+    replacement: '[PLAQUE-XXX]'
+
+  # Dates (anonymisation optionnelle, peut être désactivée si nécessaire)
+  dates:
+    enabled: false  # Désactivé par défaut (souvent nécessaire en BTP)
+    replacement: '[DATE]'
+    preserve_month_year: true  # Conserve mois/année si anonymisation active
+
+  # Coordonnées GPS (chantiers sensibles)
+  gps_coordinates:
+    enabled: false
+    replacement: '[GPS]'
+    patterns:
+      - 'decimal_degrees'  # 48.8566, 2.3522
+      - 'dms'              # 48°51'24"N, 2°21'07"E
+
+# ============================================================
+# TRAITEMENT PAR TYPE DE DOCUMENT
+# ============================================================
+document_types:
+  # Documents PDF
+  pdf:
+    remove_metadata: true
+    metadata_to_strip:
+      - 'Author'
+      - 'Creator'
+      - 'Producer'
+      - 'Title'
+      - 'Subject'
+      - 'Keywords'
+      - 'CreationDate'
+      - 'ModDate'
+    preserve_metadata: ['PageCount']
+
+  # Images et photos de chantier
+  images:
+    blur_faces: true
+    blur_license_plates: true
+    blur_text_regions: true
+    blur_handwritten_notes: true
+    exif_metadata:
+      remove_all: true
+      preserve: ['ImageWidth', 'ImageHeight', 'Orientation']
+
+  # Fichiers IFC (maquettes BIM)
+  ifc:
+    enabled: true
+    strip_properties:
+      - 'OwnerHistory'
+      - 'Organization'
+      - 'Person'
+      - 'EmailAddress'
+      - 'TelephoneNumbers'
+      - 'Address'
+    preserve_technical_properties: true
+
+  # Fichiers Excel/CSV (DQE, quantitatifs)
+  spreadsheets:
+    enabled: true
+    anonymize_columns:
+      - 'client'
+      - 'contact'
+      - 'email'
+      - 'telephone'
+      - 'prix_unitaire'  # selon contexte
+    preserve_structure: true
+
+# ============================================================
+# JOURNALISATION ET TRAÇABILITÉ
+# ============================================================
+logging:
+  # Active la journalisation des anonymisations
+  enabled: true
+
+  # Niveau de détail
+  level: 'INFO'  # DEBUG, INFO, WARNING, ERROR
+
+  # Sauvegarde des rapports
+  save_reports: true
+  report_format: 'json'  # json, yaml, txt
+
+  # Historique des anonymisations
+  track_history: true
+  history_retention_days: 365
+
+# ============================================================
+# SÉCURITÉ ET CONFORMITÉ
+# ============================================================
+security:
+  # Hash des documents avant/après anonymisation
+  compute_hashes: true
+  hash_algorithm: 'SHA256'
+
+  # Vérification post-anonymisation
+  verify_anonymization: true
+
+  # Mapping réversible (ATTENTION: sécurisé en coffre-fort uniquement)
+  enable_reversible_mapping: false
+  mapping_storage_path: null  # Chemin sécurisé si nécessaire
+
+# ============================================================
+# EXCLUSIONS ET EXCEPTIONS
+# ============================================================
+exclusions:
+  # Patterns à ne JAMAIS anonymiser
+  preserve_patterns:
+    - 'NF DTU.*'          # Références normatives
+    - 'EN \d+.*'          # Eurocodes
+    - 'AT \d{2}-\d+'      # Avis techniques
+    - 'DTU \d+\.\d+'      # Documents techniques
+    - 'C\d+/\d+'          # Classe béton
+
+  # Fichiers à exclure de l'anonymisation
+  exclude_files:
+    - '*.schema.json'     # Schémas JSON
+    - '*_template.*'      # Modèles
+
+  # Répertoires à exclure
+  exclude_directories:
+    - '.git'
+    - 'node_modules'
+    - '__pycache__'
