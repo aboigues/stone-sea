@@ -14,7 +14,7 @@ Stone-Sea est un ensemble d'outils et de modules permettant de gérer la conform
 
 ## 🏗️ Architecture
 
-Le projet est organisé en 6 modules principaux :
+Le projet est organisé en 7 modules principaux :
 
 ### MODULE_01 : Wrappers IA
 Ensemble de 8 wrappers pour encadrer et sécuriser les interactions avec les systèmes d'IA :
@@ -87,6 +87,22 @@ Planification et suivi des essais et contrôles chantier :
 - **Modèles** et exemples de plans de contrôle
 
 📁 Emplacement : `MODULE_06/`
+
+### MODULE_07 : Intégration BDNB
+Accès aux données de la Base de Données Nationale des Bâtiments (CSTB) :
+- **API Client** : Interrogation de l'API Open BDNB (32M de bâtiments, 170 caractéristiques)
+- **Schémas JSON** : Bâtiments, recherches, performance énergétique
+- **Scripts** :
+  - `bdnb_api_client.py` : Client API pour recherche et récupération de données
+- **Exemples** : Recherche par adresse/GPS, analyse énergétique, statistiques territoriales
+- **Use cases** :
+  - Enrichissement DQE avec données bâtiment existant
+  - Contrôle RT/RE avant rénovation
+  - Évaluation risques naturels (inondation, séisme, radon)
+  - Analyse performance énergétique DPE
+- **Sources** : Open Data BDNB (Licence Ouverte v2.0)
+
+📁 Emplacement : `MODULE_07/`
 
 ## 🚀 Installation
 
@@ -197,6 +213,28 @@ python MODULE_06/03_scripts/kpi_essais.py \
   --pv pv_exemples.json
 ```
 
+### MODULE_07 : Intégration BDNB
+
+#### Recherche de bâtiments par adresse
+```bash
+python MODULE_07/03_scripts/bdnb_api_client.py search "10 rue de Rivoli, Paris"
+```
+
+#### Récupération d'un bâtiment par ID
+```bash
+python MODULE_07/03_scripts/bdnb_api_client.py get "BDNB00001234"
+```
+
+#### Recherche par coordonnées GPS
+```bash
+python MODULE_07/03_scripts/bdnb_api_client.py nearby 48.8566 2.3522 500
+```
+
+#### Exemples interactifs
+```bash
+python MODULE_07/04_examples/exemple_recherche.py
+```
+
 ## 🔒 Sécurité et conformité
 
 ### Données sensibles
@@ -237,14 +275,17 @@ Tous les modules utilisent des schémas JSON standardisés pour assurer :
 - `plan_controle.schema.json` - Plans de contrôle
 - `essai.schema.json` - Essais et mesures
 - `pv.schema.json` - Procès-verbaux
+- `batiment_bdnb.schema.json` - Bâtiments BDNB
+- `recherche_bdnb.schema.json` - Résultats de recherche BDNB
 
-## 🎯 Référentiels normatifs
+## 🎯 Référentiels normatifs et données
 
 Le projet s'appuie sur les référentiels suivants :
 - **NF DTU** (Documents Techniques Unifiés) : 20.1, 21, 26.2, 36.5, 40.21, 40.29, 45.x, 60.5, 65.x, 70.1, etc.
 - **Eurocodes** : EN 206/CN, EN 12350-2, etc.
 - **Avis techniques** (AT)
 - **Règles professionnelles**
+- **BDNB** (Base de Données Nationale des Bâtiments - CSTB) : 32M de bâtiments, 170 caractéristiques open data
 
 ⚠️ **Important** : Les éditions et dates des normes doivent toujours être renseignées précisément dans vos projets.
 
@@ -281,6 +322,12 @@ stone-sea/
 │   ├── 05_modeles/
 │   ├── 06_examples/
 │   └── 07_docs/
+├── MODULE_07/              # Intégration BDNB
+│   ├── 01_schemas/
+│   ├── 02_config/
+│   ├── 03_scripts/
+│   ├── 04_examples/
+│   └── 05_docs/
 ├── gen-mod4.py             # Générateur module 04
 ├── gen-mod5.py             # Générateur module 05
 ├── gen-mod6.py             # Générateur module 06
@@ -361,8 +408,9 @@ stone-sea/
 - `MODULE_04/05_docs/README_integration_module04.md` : Intégration module 04
 - `MODULE_05/07_docs/README_integration_module05.md` : Intégration module 05
 - `MODULE_06/07_docs/README_integration_module06.md` : Intégration module 06
+- `MODULE_07/05_docs/README.md` : Intégration BDNB (Base de Données Nationale des Bâtiments)
 
 ---
 
-**Version** : 1.0
-**Dernière mise à jour** : 2025-11-20
+**Version** : 1.1
+**Dernière mise à jour** : 2025-11-21

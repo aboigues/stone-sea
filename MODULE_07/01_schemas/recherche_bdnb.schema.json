@@ -1,0 +1,68 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://stone-sea.example.com/schemas/recherche_bdnb.schema.json",
+  "title": "Résultat de recherche BDNB",
+  "description": "Schéma pour les résultats de recherche de bâtiments dans la BDNB",
+  "type": "object",
+  "required": [
+    "query",
+    "timestamp",
+    "results"
+  ],
+  "properties": {
+    "query": {
+      "type": "object",
+      "description": "Paramètres de la recherche effectuée",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["address", "coordinates", "id"],
+          "description": "Type de recherche effectuée"
+        },
+        "parameters": {
+          "type": "object",
+          "description": "Paramètres de la recherche",
+          "additionalProperties": true
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Nombre maximum de résultats demandés"
+        }
+      },
+      "required": ["type", "parameters"]
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Date et heure de la recherche"
+    },
+    "results": {
+      "type": "array",
+      "description": "Liste des bâtiments trouvés",
+      "items": {
+        "$ref": "batiment_bdnb.schema.json"
+      }
+    },
+    "count": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Nombre de résultats retournés"
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Métadonnées sur la recherche",
+      "properties": {
+        "api_version": {
+          "type": "string",
+          "description": "Version de l'API BDNB"
+        },
+        "execution_time_ms": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Temps d'exécution de la requête en millisecondes"
+        }
+      }
+    }
+  }
+}
