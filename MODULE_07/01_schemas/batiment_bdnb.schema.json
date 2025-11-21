@@ -1,0 +1,217 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://stone-sea.example.com/schemas/batiment_bdnb.schema.json",
+  "title": "Bâtiment BDNB",
+  "description": "Schéma pour les données d'un bâtiment issues de la Base de Données Nationale des Bâtiments (BDNB)",
+  "type": "object",
+  "required": [
+    "batiment_id",
+    "retrieved_at"
+  ],
+  "properties": {
+    "batiment_id": {
+      "type": "string",
+      "description": "Identifiant unique du bâtiment dans la BDNB"
+    },
+    "rnb_id": {
+      "type": "string",
+      "description": "Identifiant du Référentiel National des Bâtiments (RNB)"
+    },
+    "adresse": {
+      "type": "object",
+      "description": "Adresse du bâtiment",
+      "properties": {
+        "numero": {
+          "type": "string",
+          "description": "Numéro de voirie"
+        },
+        "voie": {
+          "type": "string",
+          "description": "Nom de la voie"
+        },
+        "code_postal": {
+          "type": "string",
+          "pattern": "^[0-9]{5}$",
+          "description": "Code postal"
+        },
+        "commune": {
+          "type": "string",
+          "description": "Nom de la commune"
+        },
+        "code_insee": {
+          "type": "string",
+          "pattern": "^[0-9]{5}$",
+          "description": "Code INSEE de la commune"
+        }
+      }
+    },
+    "geolocalisation": {
+      "type": "object",
+      "description": "Coordonnées géographiques du bâtiment",
+      "properties": {
+        "latitude": {
+          "type": "number",
+          "minimum": -90,
+          "maximum": 90,
+          "description": "Latitude (WGS84)"
+        },
+        "longitude": {
+          "type": "number",
+          "minimum": -180,
+          "maximum": 180,
+          "description": "Longitude (WGS84)"
+        },
+        "precision": {
+          "type": "string",
+          "enum": ["batiment", "parcelle", "adresse", "commune"],
+          "description": "Précision de la géolocalisation"
+        }
+      }
+    },
+    "caracteristiques_generales": {
+      "type": "object",
+      "description": "Caractéristiques générales du bâtiment",
+      "properties": {
+        "annee_construction": {
+          "type": "integer",
+          "minimum": 1000,
+          "maximum": 2100,
+          "description": "Année de construction"
+        },
+        "nb_niveaux": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Nombre de niveaux"
+        },
+        "nb_logements": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Nombre de logements"
+        },
+        "surface_habitable": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Surface habitable en m²"
+        },
+        "surface_plancher": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Surface de plancher en m²"
+        },
+        "usage_principal": {
+          "type": "string",
+          "enum": ["residentiel", "tertiaire", "mixte", "industriel", "autre"],
+          "description": "Usage principal du bâtiment"
+        }
+      }
+    },
+    "performance_energetique": {
+      "type": "object",
+      "description": "Performance énergétique (DPE)",
+      "properties": {
+        "dpe_classe": {
+          "type": "string",
+          "enum": ["A", "B", "C", "D", "E", "F", "G", "N/A"],
+          "description": "Classe énergétique du DPE"
+        },
+        "dpe_energie": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Consommation énergétique en kWh/m²/an"
+        },
+        "ges_classe": {
+          "type": "string",
+          "enum": ["A", "B", "C", "D", "E", "F", "G", "N/A"],
+          "description": "Classe d'émission de GES"
+        },
+        "ges_emission": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Émission de GES en kgCO2/m²/an"
+        },
+        "dpe_date": {
+          "type": "string",
+          "format": "date",
+          "description": "Date du DPE"
+        }
+      }
+    },
+    "systemes": {
+      "type": "object",
+      "description": "Systèmes techniques du bâtiment",
+      "properties": {
+        "chauffage": {
+          "type": "string",
+          "description": "Type de système de chauffage"
+        },
+        "eau_chaude": {
+          "type": "string",
+          "description": "Type de système d'eau chaude sanitaire"
+        },
+        "refroidissement": {
+          "type": "string",
+          "description": "Type de système de refroidissement"
+        },
+        "ventilation": {
+          "type": "string",
+          "description": "Type de système de ventilation"
+        },
+        "energie_renouvelable": {
+          "type": "boolean",
+          "description": "Présence d'énergie renouvelable"
+        }
+      }
+    },
+    "risques": {
+      "type": "object",
+      "description": "Exposition aux risques",
+      "properties": {
+        "inondation": {
+          "type": "string",
+          "enum": ["faible", "moyen", "fort", "non_evalue"],
+          "description": "Risque d'inondation"
+        },
+        "seisme": {
+          "type": "string",
+          "enum": ["1", "2", "3", "4", "5", "non_evalue"],
+          "description": "Zone de sismicité"
+        },
+        "radon": {
+          "type": "string",
+          "enum": ["1", "2", "3", "non_evalue"],
+          "description": "Potentiel radon"
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Métadonnées sur la récupération des données",
+      "properties": {
+        "retrieved_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Date et heure de récupération des données"
+        },
+        "api_version": {
+          "type": "string",
+          "description": "Version de l'API BDNB utilisée"
+        },
+        "source": {
+          "type": "string",
+          "default": "BDNB - CSTB",
+          "description": "Source des données"
+        },
+        "licence": {
+          "type": "string",
+          "default": "Licence Ouverte v2.0 (Etalab)",
+          "description": "Licence des données"
+        }
+      }
+    },
+    "retrieved_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Date et heure de récupération (compatibilité)"
+    }
+  }
+}

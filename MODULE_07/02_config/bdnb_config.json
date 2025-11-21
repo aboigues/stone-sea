@@ -1,0 +1,91 @@
+{
+  "api": {
+    "base_url": "https://bdnb.io/api/v1",
+    "timeout_seconds": 30,
+    "rate_limit": {
+      "requests_per_minute": 60,
+      "burst_size": 10
+    }
+  },
+  "sources": {
+    "bdnb_portal": "https://bdnb.io/",
+    "data_gouv": "https://www.data.gouv.fr/datasets/base-de-donnees-nationale-des-batiments/",
+    "gitlab": "https://gitlab.com/BDNB/base_nationale_batiment",
+    "documentation": "https://bdnb.io/documentation",
+    "cstb": "https://www.cstb.fr/bases-donnees/base-donnees-nationale-batiments"
+  },
+  "licence": {
+    "type": "Licence Ouverte v2.0 (Etalab)",
+    "url": "https://www.etalab.gouv.fr/licence-ouverte-open-licence/",
+    "attribution": "BDNB - CSTB",
+    "usage": "Libre réutilisation avec attribution de la source"
+  },
+  "caracteristiques": {
+    "nombre_batiments": 32000000,
+    "caracteristiques_totales": 400,
+    "caracteristiques_open_data": 170,
+    "mise_a_jour_frequence": "3 fois par an",
+    "formats_disponibles": [
+      "API REST",
+      "GeoPackage (GPKG)",
+      "CSV",
+      "Dump base de données"
+    ]
+  },
+  "endpoints": {
+    "search_by_address": "/buildings/search",
+    "get_by_id": "/buildings/{id}",
+    "search_nearby": "/buildings/nearby",
+    "energy_data": "/buildings/{id}/energy",
+    "statistics": "/statistics"
+  },
+  "search_defaults": {
+    "limit": 10,
+    "proximity_radius_m": 100,
+    "max_results": 100
+  },
+  "data_fields": {
+    "essentiels": [
+      "batiment_id",
+      "rnb_id",
+      "adresse",
+      "geolocalisation",
+      "annee_construction",
+      "usage_principal"
+    ],
+    "performance_energetique": [
+      "dpe_classe",
+      "dpe_energie",
+      "ges_classe",
+      "ges_emission"
+    ],
+    "caracteristiques_techniques": [
+      "nb_niveaux",
+      "nb_logements",
+      "surface_habitable",
+      "surface_plancher",
+      "chauffage",
+      "ventilation"
+    ],
+    "risques": [
+      "inondation",
+      "seisme",
+      "radon"
+    ]
+  },
+  "integration_stone_sea": {
+    "module": "MODULE_07",
+    "use_cases": [
+      "Contrôle conformité bâtiment existant",
+      "Analyse performance énergétique",
+      "Évaluation risques naturels",
+      "Enrichissement données projet BTP",
+      "Statistiques territoriales"
+    ],
+    "compatibilite_modules": [
+      "MODULE_04 - Production documentaire (enrichissement DQE)",
+      "MODULE_05 - Conformité normative (vérification RT/RE)",
+      "MODULE_06 - Plan d'essais (historique bâtiment)"
+    ]
+  }
+}
