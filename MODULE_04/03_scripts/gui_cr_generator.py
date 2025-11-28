@@ -12,7 +12,7 @@ from tkinter.font import Font
 
 # Importe le générateur
 try:
-    from cr_json_to_docx import generate_programmatic
+    from cr_json_to_docx import generate_programmatic, generate_from_template, find_default_template
 except ImportError:
     print("[ERREUR] Impossible d'importer cr_json_to_docx.py")
     print("Assurez-vous que le fichier est dans le même dossier.")
@@ -28,6 +28,11 @@ class CRGeneratorGUI:
         # Variables pour les listes dynamiques
         self.points = []
         self.actions = []
+
+        # Variables pour le template
+        self.default_template = find_default_template()
+        self.custom_template = None
+        self.use_template = BooleanVar(value=True if self.default_template else False)
 
         # Configure le style
         self.setup_style()
@@ -216,6 +221,46 @@ class CRGeneratorGUI:
         ttk.Button(actions_buttons, text="Supprimer", command=self.remove_action).pack(side=LEFT, padx=5)
         row_idx += 1
 
+        # Section 5 : Options de génération
+        ttk.Separator(container, orient='horizontal').grid(row=row_idx, column=0, columnspan=2, sticky=(W, E), pady=20)
+        row_idx += 1
+
+        ttk.Label(container, text="5. Options de génération", style='Section.TLabel').grid(
+            row=row_idx, column=0, columnspan=2, sticky=W, pady=(10, 10)
+        )
+        row_idx += 1
+
+        # Checkbox pour utiliser le template
+        template_frame = ttk.Frame(container)
+        template_frame.grid(row=row_idx, column=0, columnspan=2, sticky=(W, E), pady=5)
+
+        self.chk_template = ttk.Checkbutton(
+            template_frame,
+            text="Utiliser un template .docx",
+            variable=self.use_template,
+            command=self.update_template_ui
+        )
+        self.chk_template.pack(side=LEFT, padx=(0, 10))
+        row_idx += 1
+
+        # Informations sur le template
+        template_info_frame = ttk.Frame(container)
+        template_info_frame.grid(row=row_idx, column=0, columnspan=2, sticky=(W, E), pady=5)
+
+        self.lbl_template_info = ttk.Label(template_info_frame, text="", foreground=self.color_secondary)
+        self.lbl_template_info.pack(side=LEFT, padx=(20, 10))
+
+        self.btn_choose_template = ttk.Button(
+            template_info_frame,
+            text="Choisir un template...",
+            command=self.choose_template
+        )
+        self.btn_choose_template.pack(side=LEFT)
+        row_idx += 1
+
+        # Mise à jour initiale de l'interface
+        self.update_template_ui()
+
         # Bouton de génération
         ttk.Separator(container, orient='horizontal').grid(row=row_idx, column=0, columnspan=2, sticky=(W, E), pady=20)
         row_idx += 1
@@ -364,6 +409,36 @@ class CRGeneratorGUI:
         for action in self.actions:
             self.actions_listbox.insert(END, f"{action['qui']} → {action['quoi'][:50]} ({action['quand']})")
 
+    def update_template_ui(self):
+        """Met à jour l'interface en fonction du mode template."""
+        if self.use_template.get():
+            # Mode template activé
+            template_to_use = self.custom_template or self.default_template
+            if template_to_use:
+                template_name = os.path.basename(template_to_use)
+                if self.custom_template:
+                    self.lbl_template_info.config(text=f"📄 Template personnalisé: {template_name}")
+                else:
+                    self.lbl_template_info.config(text=f"📄 Template détecté: {template_name}")
+            else:
+                self.lbl_template_info.config(text="⚠️ Aucun template disponible - choisissez-en un")
+            self.btn_choose_template.config(state='normal')
+        else:
+            # Mode programmatique
+            self.lbl_template_info.config(text="🔧 Génération programmatique (sans template)")
+            self.btn_choose_template.config(state='disabled')
+
+    def choose_template(self):
+        """Permet de choisir un template personnalisé."""
+        template_path = filedialog.askopenfilename(
+            title="Choisir un template .docx",
+            filetypes=[("Documents Word", "*.docx")],
+            initialdir=os.path.join(os.path.dirname(__file__), "..", "04_modeles")
+        )
+        if template_path:
+            self.custom_template = template_path
+            self.update_template_ui()
+
     def generate_document(self):
         """Génère le document .docx."""
         # Validation
@@ -407,9 +482,22 @@ class CRGeneratorGUI:
             return
 
         try:
-            # Génère le document
-            generate_programmatic(cr_data, output_path)
-            messagebox.showinfo("Succès", f"Document généré avec succès !\n\n{output_path}")
+            # Génère le document selon le mode choisi
+            if self.use_template.get():
+                # Mode template
+                template_to_use = self.custom_template or self.default_template
+                if not template_to_use:
+                    messagebox.showerror("Erreur", "Aucun template disponible. Veuillez en choisir un ou désactiver le mode template.")
+                    return
+                if not os.path.exists(template_to_use):
+                    messagebox.showerror("Erreur", f"Template introuvable : {template_to_use}")
+                    return
+                generate_from_template(cr_data, template_to_use, output_path)
+                messagebox.showinfo("Succès", f"Document généré avec succès (mode template) !\n\nTemplate: {os.path.basename(template_to_use)}\nSortie: {output_path}")
+            else:
+                # Mode programmatique
+                generate_programmatic(cr_data, output_path)
+                messagebox.showinfo("Succès", f"Document généré avec succès (mode programmatique) !\n\n{output_path}")
         except Exception as e:
             messagebox.showerror("Erreur", f"Erreur lors de la génération :\n{str(e)}")
 

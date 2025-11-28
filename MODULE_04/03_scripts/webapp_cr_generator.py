@@ -13,7 +13,7 @@ import shutil
 
 # Importe le générateur
 try:
-    from cr_json_to_docx import generate_programmatic
+    from cr_json_to_docx import generate_programmatic, generate_from_template, find_default_template
 except ImportError:
     print("[ERREUR] Impossible d'importer cr_json_to_docx.py")
     print("Assurez-vous que le fichier est dans le même dossier.")
@@ -22,6 +22,9 @@ except ImportError:
 app = Flask(__name__)
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max
 app.config['UPLOAD_FOLDER'] = tempfile.mkdtemp()
+
+# Détecte le template par défaut
+DEFAULT_TEMPLATE = find_default_template()
 
 # Template HTML avec formulaire
 HTML_TEMPLATE = """
@@ -425,6 +428,26 @@ HTML_TEMPLATE = """
                     <button type="button" class="add-btn" onclick="addAction()">+ Ajouter une action</button>
                 </div>
 
+                <!-- Section Options de génération -->
+                <div class="section">
+                    <h2>5. Options de génération</h2>
+
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" name="use_template" id="use_template" value="1" """ + ("checked" if DEFAULT_TEMPLATE else "") + """>
+                            Utiliser un template .docx
+                        </label>
+                    </div>
+
+                    <div class="info-box" id="template-info" style="margin-top: 10px;">
+                        """ + (f"<p>📄 Template détecté: <strong>{os.path.basename(DEFAULT_TEMPLATE)}</strong></p>" if DEFAULT_TEMPLATE else "<p>⚠️ Aucun template détecté - génération programmatique par défaut</p>") + """
+                        <p style="margin-top: 8px; font-size: 12px; color: #666;">
+                            <strong>Mode template :</strong> Remplit un modèle Word prédéfini<br>
+                            <strong>Mode programmatique :</strong> Génère un document avec mise en forme avancée (couleurs, tableaux dynamiques)
+                        </p>
+                    </div>
+                </div>
+
                 <!-- Bouton de soumission -->
                 <div class="section">
                     <button type="submit" class="submit-btn" id="submit-btn">
@@ -667,9 +690,17 @@ def generate():
                 })
             i += 1
 
-        # Génère le document
+        # Génère le document selon le mode choisi
         output_path = os.path.join(app.config['UPLOAD_FOLDER'], f'CR_{datetime.now().strftime("%Y%m%d_%H%M%S")}.docx')
-        generate_programmatic(cr_data, output_path)
+
+        use_template = form_data.get('use_template') == '1'
+
+        if use_template and DEFAULT_TEMPLATE:
+            # Mode template
+            generate_from_template(cr_data, DEFAULT_TEMPLATE, output_path)
+        else:
+            # Mode programmatique
+            generate_programmatic(cr_data, output_path)
 
         # Envoie le fichier
         return send_file(
