@@ -1,0 +1,10 @@
+{
+  "wrappers": [1, 2, 6],
+  "module": "MODULE_04",
+  "prompt": "prompt_redaction_cctp",
+  "variables": {
+    "PROJET": "Résidence Les Acacias",
+    "LOT": "Couverture",
+    "LOTS": "Couverture, Maçonnerie, Électricité, CVC"
+  }
+}

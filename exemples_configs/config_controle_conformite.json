@@ -1,0 +1,9 @@
+{
+  "wrappers": [2, 8],
+  "module": "MODULE_05",
+  "prompt": "prompt_controle_cctp",
+  "variables": {
+    "PROJET": "Tour Horizon - Phase 2",
+    "LOT": "Maçonnerie"
+  }
+}
