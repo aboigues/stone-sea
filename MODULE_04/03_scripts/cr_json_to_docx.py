@@ -6,6 +6,7 @@
 import json
 import sys
 import os
+import glob
 from datetime import datetime
 from docx import Document
 from docx.shared import Pt, RGBColor, Inches
@@ -194,6 +195,33 @@ def generate_programmatic(cr_data, output_path):
     doc.save(output_path)
     print(f"[OK] CR exporté -> {output_path}")
 
+def find_default_template():
+    """
+    Cherche automatiquement un template .docx dans le répertoire 04_modeles/.
+    Retourne le chemin du premier fichier .docx trouvé, ou None.
+    """
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    modeles_dir = os.path.join(script_dir, "..", "04_modeles")
+
+    # Normalise le chemin
+    modeles_dir = os.path.normpath(modeles_dir)
+
+    if not os.path.exists(modeles_dir):
+        return None
+
+    # Cherche tous les fichiers .docx
+    pattern = os.path.join(modeles_dir, "*.docx")
+    docx_files = glob.glob(pattern)
+
+    # Filtre les fichiers temporaires Word (commence par ~$)
+    docx_files = [f for f in docx_files if not os.path.basename(f).startswith('~$')]
+
+    if docx_files:
+        # Retourne le premier fichier trouvé
+        return docx_files[0]
+
+    return None
+
 def main():
     if len(sys.argv) < 3:
         print("Usage:")
@@ -212,15 +240,34 @@ def main():
         print(f"[ERREUR] Impossible de lire {json_path}: {e}")
         sys.exit(1)
 
-    # Mode template ou programmatique?
+    # Détermine le template à utiliser
+    template_path = None
+
+    # Option 1 : --template fourni explicitement
     if "--template" in sys.argv:
         template_idx = sys.argv.index("--template") + 1
         if template_idx >= len(sys.argv):
             print("[ERREUR] Chemin du template manquant après --template")
             sys.exit(1)
         template_path = sys.argv[template_idx]
+        print(f"[INFO] Utilisation du template spécifié: {template_path}")
+    else:
+        # Option 2 : cherche un template par défaut
+        default_template = find_default_template()
+        if default_template:
+            template_path = default_template
+            print(f"[INFO] Template détecté automatiquement: {os.path.basename(template_path)}")
+            print(f"       Chemin complet: {template_path}")
+
+    # Mode template ou programmatique?
+    if template_path:
+        # Vérifie que le template existe
+        if not os.path.exists(template_path):
+            print(f"[ERREUR] Template introuvable: {template_path}")
+            sys.exit(1)
         generate_from_template(cr_data, template_path, output_path)
     else:
+        print("[INFO] Aucun template trouvé, génération programmatique")
         generate_programmatic(cr_data, output_path)
 
 if __name__ == "__main__":
