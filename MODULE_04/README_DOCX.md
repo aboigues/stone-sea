@@ -4,6 +4,35 @@
 
 Générer des comptes rendus de chantier et autres documents au format .docx à partir de données structurées (JSON) et de templates.
 
+---
+
+## 👥 Pour les utilisateurs NON TECHNIQUES
+
+**Vous n'êtes pas développeur ?** Pas de problème !
+
+### 🌐 Interface Web (Recommandée)
+Double-cliquez sur :
+- **Windows** : `MODULE_04/03_scripts/lancer_application_web.bat`
+- **Mac/Linux** : `MODULE_04/03_scripts/lancer_application_web.sh`
+
+→ Votre navigateur s'ouvre avec un formulaire simple
+→ Remplissez et téléchargez votre CR en .docx
+
+### 🖥️ Interface Graphique
+Double-cliquez sur :
+- **Windows** : `MODULE_04/03_scripts/lancer_interface_graphique.bat`
+- **Mac/Linux** : `MODULE_04/03_scripts/lancer_interface_graphique.sh`
+
+→ Application de bureau classique
+
+### 📚 Documentation utilisateur
+- **Installation** : [`INSTALLATION_FACILE.md`](INSTALLATION_FACILE.md)
+- **Guide complet** : [`05_docs/guide_utilisateur_non_technique.md`](05_docs/guide_utilisateur_non_technique.md)
+
+---
+
+## 💻 Pour les développeurs
+
 ## 🚀 Démarrage rapide
 
 ### Installation
